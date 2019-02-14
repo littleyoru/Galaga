@@ -20,6 +20,9 @@ namespace Galaga
         public Galaga()
         {
             InitializeComponent();
+            KeyDown += Keyboard.OnKeyDown;
+            KeyUp += Keyboard.OnKeyUp;
+
             PlaySpace.Controls.Add(PlayerScore);
             PlaySpace.Controls.Add(Score);
             PlaySpace.Controls.Add(HighScoreLabel);
@@ -43,19 +46,12 @@ namespace Galaga
 
             // generate level 1
             game.GenerateLevel(1, PlaySpace, bmp, g);
-
-
-            //game.InitializePlayer(g, PlaySpace, bmp);
-            //game.DrawSpareLives(g, PlaySpace, bmp);
-            //game.DrawEnemies(1, g, PlaySpace, bmp);
+            moveTimer.Start();
 
             Timer timer = new Timer();
             timer.Tick += delegate { game.currentPlayer.Shoot(g, PlaySpace, bmp, game.enemies, Score); };
             timer.Interval = 1000;
             timer.Start();
-
-            //await Task.Delay(10);
-            //game.currentPlayer.Shoot(g, PlaySpace, bmp, game.enemies);
 
         }
 
@@ -80,27 +76,30 @@ namespace Galaga
             await Task.Delay(500);
         }
 
-        private async void Galaga_KeyDown(object sender, KeyEventArgs e)
-        {
-            switch (e.KeyCode)
-            {
-                case Keys.Left:
-                    game.currentPlayer.Move("left", PlaySpace.Width);
-                    break;
-                case Keys.Right:
-                    game.currentPlayer.Move("right", PlaySpace.Width);
-                    break;
-                default:
-                    break;
-            }
-
-            await Task.Delay(200);
-        }
-
         private void Galaga_Load(object sender, EventArgs e)
         {
             HighScore.Text = Utility.ReadFromFile(filePath).ToString();
         }
 
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            double x = game.currentPlayer.frame.Location.X;
+            int y = game.currentPlayer.frame.Location.Y;
+            double velocity = 1000 * 0.002;
+            if (Keyboard.IsKeyDown(Keys.Left))
+            {
+                x -= velocity;
+            }
+            else if (Keyboard.IsKeyDown(Keys.Right))
+            {
+                x += velocity;
+            }
+
+            var newLocation = new Point((int)x, y);
+            if (x > 5 && x < PlaySpace.Width - 40)
+            {
+                game.currentPlayer.frame.Location = newLocation;
+            }
+        }
     }
 }

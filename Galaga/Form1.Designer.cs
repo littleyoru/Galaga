@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.PlaySpace = new System.Windows.Forms.PictureBox();
             this.PlayerScore = new System.Windows.Forms.Label();
             this.Score = new System.Windows.Forms.Label();
             this.HighScoreLabel = new System.Windows.Forms.Label();
             this.HighScore = new System.Windows.Forms.Label();
+            this.moveTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.PlaySpace)).BeginInit();
             this.SuspendLayout();
             // 
@@ -100,6 +102,11 @@
             this.HighScore.TabIndex = 4;
             this.HighScore.Text = "0";
             // 
+            // moveTimer
+            // 
+            this.moveTimer.Interval = 10;
+            this.moveTimer.Tick += new System.EventHandler(this.Timer_Tick);
+            // 
             // Galaga
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -115,7 +122,6 @@
             this.Text = "Galaga";
             this.Load += new System.EventHandler(this.Galaga_Load);
             this.Shown += new System.EventHandler(this.Galaga_Shown);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Galaga_KeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Galaga_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.PlaySpace)).EndInit();
             this.ResumeLayout(false);
@@ -130,6 +136,7 @@
         private System.Windows.Forms.Label Score;
         private System.Windows.Forms.Label HighScoreLabel;
         private System.Windows.Forms.Label HighScore;
+        private System.Windows.Forms.Timer moveTimer;
     }
 }
 
