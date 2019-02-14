@@ -31,14 +31,14 @@ namespace Galaga
 
         public async Task ShowStartScreen(Graphics g, PictureBox PlaySpace, Image bmp)
         {
-            Font drawFont = new Font("Arial", 15);
+            Font drawFont = new Font("Axure Handwriting", 20);
             SolidBrush drawBrush = new SolidBrush(Color.FromArgb(255, 220, 56));
             g.DrawString("SPACE to start", drawFont, drawBrush, 150, 200);
             g.DrawString("ESC to exit", drawFont, drawBrush, 170, 250);
 
             while (start.start == false)
             {
-                await Task.Delay(1000);
+                await Task.Delay(700);
             }
 
             drawBrush = new SolidBrush(Color.FromArgb(64, 64, 64));
@@ -95,6 +95,13 @@ namespace Galaga
                 enemies.Add(enemy);
                 posX += 55;
             }
+        }
+
+        public void GenerateLevel(int level, PictureBox PlaySpace, Bitmap bmp, Graphics g)
+        {
+            InitializePlayer(g, PlaySpace, bmp);
+            DrawSpareLives(g, PlaySpace, bmp);
+            DrawEnemies(level, g, PlaySpace, bmp);
         }
     }
 }

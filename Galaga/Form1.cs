@@ -41,9 +41,13 @@ namespace Galaga
             await game.ShowStartScreen(g, PlaySpace, bmp);
             PlaySpace.Image = bmp;
 
-            game.InitializePlayer(g, PlaySpace, bmp);
-            game.DrawSpareLives(g, PlaySpace, bmp);
-            game.DrawEnemies(1, g, PlaySpace, bmp);
+            // generate level 1
+            game.GenerateLevel(1, PlaySpace, bmp, g);
+
+
+            //game.InitializePlayer(g, PlaySpace, bmp);
+            //game.DrawSpareLives(g, PlaySpace, bmp);
+            //game.DrawEnemies(1, g, PlaySpace, bmp);
 
             Timer timer = new Timer();
             timer.Tick += delegate { game.currentPlayer.Shoot(g, PlaySpace, bmp, game.enemies, Score); };
@@ -97,5 +101,6 @@ namespace Galaga
         {
             HighScore.Text = Utility.ReadFromFile(filePath).ToString();
         }
+
     }
 }
