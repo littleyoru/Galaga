@@ -55,23 +55,6 @@ namespace Galaga
 
             PlaySpace.Image = bmp;
         }
-        public void Move(string direction, int playWidth)
-        {
-            var x = frame.Location.X;
-            var y = frame.Location.Y;
-            if (direction == "left")
-            {
-                x -= 2;
-            }
-            else if (direction == "right")
-            {
-                x += 2;
-            }
-            if (x > 5 && x < playWidth - 40)
-            {
-                frame.Location = new Point(x, y);
-            }
-        }
     }
     class Enemy: Element
     {
@@ -99,6 +82,7 @@ namespace Galaga
                 y -= 2;
                 bulletFrame.Location = new Point(x, y);
                 PlaySpace.Image = bmp;
+
                 // collision detection
                 foreach (var enemy in enemies)
                 {

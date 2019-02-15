@@ -43,15 +43,16 @@ namespace Galaga
             game = new PlayGalaga(startObj);
             await game.ShowStartScreen(g, PlaySpace, bmp);
             PlaySpace.Image = bmp;
+            int level = 1;
+            Timer timer = new Timer();
 
             // generate level 1
-            game.GenerateLevel(1, PlaySpace, bmp, g);
+            game.GenerateLevel(level, PlaySpace, bmp, g);
             moveTimer.Start();
+            bool levelFinished = await game.PlayLevel(timer, g, PlaySpace, bmp, Score);
 
-            Timer timer = new Timer();
-            timer.Tick += delegate { game.currentPlayer.Shoot(g, PlaySpace, bmp, game.enemies, Score); };
-            timer.Interval = 1000;
-            timer.Start();
+            if (levelFinished == true)
+                level++;
 
         }
 

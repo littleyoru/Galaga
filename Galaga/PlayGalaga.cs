@@ -26,7 +26,6 @@ namespace Galaga
 
             spareLives = new List<Player>();
             enemies = new List<Enemy>();
-
         }
 
         public async Task ShowStartScreen(Graphics g, PictureBox PlaySpace, Image bmp)
@@ -43,8 +42,6 @@ namespace Galaga
 
             drawBrush = new SolidBrush(Color.FromArgb(64, 64, 64));
             g.FillRectangle(drawBrush, new Rectangle(150, 200, 500, 100));
-
-
         }
 
         public void InitializePlayer(Graphics g, PictureBox PlaySpace, Bitmap bmp)
@@ -102,6 +99,31 @@ namespace Galaga
             InitializePlayer(g, PlaySpace, bmp);
             DrawSpareLives(g, PlaySpace, bmp);
             DrawEnemies(level, g, PlaySpace, bmp);
+        }
+
+        public async Task<bool> PlayLevel(Timer timer, Graphics g, PictureBox PlaySpace, Bitmap bmp, Label Score)
+        {
+            bool levelFinished = false;
+            timer.Tick += delegate
+            {
+                if (enemies.Count > 0)
+                    currentPlayer.Shoot(g, PlaySpace, bmp, enemies, Score);
+                else
+                {
+                    timer.Stop();
+                    levelFinished = true;
+                    return;
+                }
+            };
+            timer.Interval = 1000;
+            if (levelFinished == false)
+                timer.Start();
+            //await Task.Delay(10);
+            while(levelFinished == false)
+            {
+                await Task.Delay(10);
+            }
+            return levelFinished;
         }
     }
 }
