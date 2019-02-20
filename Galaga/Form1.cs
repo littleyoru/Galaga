@@ -44,15 +44,25 @@ namespace Galaga
             await game.ShowStartScreen(g, PlaySpace, bmp);
             PlaySpace.Image = bmp;
             int level = 1;
-            Timer timer = new Timer();
+            int maxLevel = 3;
 
-            // generate level 1
-            game.GenerateLevel(level, PlaySpace, bmp, g);
-            moveTimer.Start();
-            bool levelFinished = await game.PlayLevel(timer, g, PlaySpace, bmp, Score);
+            game.InitializePlayer(g, PlaySpace, bmp);
 
-            if (levelFinished == true)
-                level++;
+            while (level <= maxLevel)
+            {
+                // generate level
+                Timer timer = new Timer();
+                game.GenerateLevel(level, PlaySpace, bmp, g);
+                moveTimer.Start();
+                bool levelExit = await game.PlayLevel(timer, g, PlaySpace, bmp, Score);
+
+                if (levelExit == true)
+                {
+                    level++;
+                    moveTimer.Stop();
+                }
+            }
+
 
         }
 

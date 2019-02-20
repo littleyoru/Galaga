@@ -46,7 +46,7 @@ namespace Galaga
 
             // shoot and set score
             int score = await bullet.MoveBullet(bullet.frame, PlaySpace, bmp, enemies);
-            // race condition (if lock is removed)
+            // data race condition (if lock is removed)
             lock (scoreLabel)
             {
                 int newScore = int.Parse(scoreLabel.Text) + score;

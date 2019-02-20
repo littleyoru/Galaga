@@ -96,7 +96,6 @@ namespace Galaga
 
         public void GenerateLevel(int level, PictureBox PlaySpace, Bitmap bmp, Graphics g)
         {
-            InitializePlayer(g, PlaySpace, bmp);
             DrawSpareLives(g, PlaySpace, bmp);
             DrawEnemies(level, g, PlaySpace, bmp);
         }
@@ -121,7 +120,7 @@ namespace Galaga
             //await Task.Delay(10);
             while(levelFinished == false)
             {
-                await Task.Delay(10);
+                await Task.Delay(1000);
             }
             return levelFinished;
         }
