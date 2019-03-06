@@ -101,4 +101,18 @@ namespace Galaga
 
         }
     }
+
+    class PowerUp: Element
+    {
+        Random Rand = new Random();
+        static Bitmap Life = new Bitmap(Image.FromFile(@"C:\Users\Elena\source\repos\Galaga\Galaga\Images\life.png"), 8, 10);
+        static Bitmap Bomb = new Bitmap(Image.FromFile(@"C:\Users\Elena\source\repos\Galaga\Galaga\Images\bomb.png"), 10, 15);
+        static Bitmap DoubleScore = new Bitmap(Image.FromFile(@"C:\Users\Elena\source\repos\Galaga\Galaga\Images\doubleScore.png"));
+        Bitmap[] PowerUps = new Bitmap[] { Life, Bomb, DoubleScore };
+
+        public PowerUp()
+        {
+            image = PowerUps[Rand.Next(0, PowerUps.Length)];
+        }
+    }
 }

@@ -20,12 +20,14 @@ namespace Galaga
         public Player currentPlayer;
         public List<Player> spareLives;
         public List<Enemy> enemies;
+        public List<PowerUp> powerUps;
         public PlayGalaga(StartObj startObj)
         {
             start = startObj;
 
             spareLives = new List<Player>();
             enemies = new List<Enemy>();
+            powerUps = new List<PowerUp>();
         }
 
         public async Task ShowStartScreen(Graphics g, PictureBox PlaySpace, Image bmp)
